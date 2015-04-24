@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Intro</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/united.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background-color: #FCFCFC;
+	text-align: justify;
+}
+@media (max-width: 979px) {
+	body {
+		padding-top: 0;
+	}
+}
+/* offset scroll position for anchor links (for fixed navbar) */
+@media (min-width: 980px) {
+	.section h2 {
+		padding-top: 52px;
+		margin-top: -52px;
+	}
+	.section h3 {
+		padding-top: 52px;
+		margin-top: -52px;
+	}
+}
+p {
+	font-size: 13px;
+}
+/* don't use link color in navbar */
+.dropdown-menu>li>a {
+	color: black;
+}
+/* some padding for disqus */
+#disqus_thread {
+	margin-top: 45px;
+}
+
+</style>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
+}
+</style>
+<div class="container-fluid main-container">
+
+<h1>Kentucky Derby 2015 - Twitter Analysis</h1>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://durtal.github.io/">durtal.github.io</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Intro</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="https://github.com/durtal/KYDerby2015-twitter"><i class="fa fa-github fa-lg"></i>
+                </a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div id="header">
+<h1 class="title">Intro</h1>
+</div>
+
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://durtal.github.io/KYDerby2015-twitter/index.html" data-text="Kentucky Derby 2015 Twitter Analysis, Intro" data-via="_RcappeR" data-related="_RcappeR" data-hashtags="rstats,KYDerby">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<p>Following on from my look at how racing fans interacted on twitter during the 2014 and 2015 Cheltenham Festival (see the <a href="http://durtal.github.io/cheltenham-festival-2015-twitter/index.html">dedicated site</a>) and reading the following tweet by <a href="https://twitter.com/railbird">@railbird</a>, I decided to adapt my code to collect tweets that use the popular <a href="https://twitter.com/search?q=%23KYDerby&amp;src=typd">#KYDerby</a> hashtag as well as the potential runners in the race itself.</p>
+<blockquote class="twitter-tweet" lang="en-gb">
+<p>
+Would love to see something like this for the 2015 <a href="https://twitter.com/hashtag/KYDerby?src=hash">#KYDerby</a>, <a href="https://twitter.com/TwitterData"><span class="citation">@TwitterData</span></a>: <a href="https://t.co/oBrNY0JVVb">https://t.co/oBrNY0JVVb</a>
+</p>
+— Railbird (<span class="citation">@railbird</span>) <a href="https://twitter.com/railbird/status/585128431060418563">April 6, 2015</a>
+</blockquote>
+<p>This site will host some simple analysis and plots, everything, data, code, plots, are available in this <a href="https://github.com/durtal/KYDerby2015-twitter">repo</a> and its various branches. Any contributions, such as posts would be most welcome, get in touch <a href="https://twitter.com/_RcappeR">@_RcappeR</a>.</p>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+
+</body>
+</html>
