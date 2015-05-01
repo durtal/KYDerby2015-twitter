@@ -4,7 +4,7 @@ library(streamR)
 load("../data/my_auth.RData")
 
 # need to add runners closer to date
-fillies <- c("Forever Unbridled", "Shook Up", "Include Betty", "Eskenformoney", "Condo Commando", "Angela Renee", "Lovely Maria", "I'm A Chatterbox", "Money'soncharlotte", "Oceanwave", "Sarah Sis", "Stellar Wind", "Birdatthewire", "Puca")
+fillies <- c("Forever Unbridled", "Shook Up", "Include Betty", "Eskenformoney", "Condo Commando", "Angela Renee", "Lovely Maria", "I'm A Chatterbox", "Money'soncharlotte", "Oceanwave", "Sarah Sis", "Stellar Wind", "Birdatthewire", "Puca", "Peace And War")
 searchfor <- c("KYOaks", "KentuckyOaks", fillies)
 # derby
 # colts <- c()
