@@ -8,7 +8,7 @@ load("../data/my_auth.RData")
 # searchfor <- c("KYOaks", "KentuckyOaks", fillies)
 # derby
 colts <- c("Ocho Ocho Ocho", "Carpe Diem", "Materiality", "Tencendur", "Danzig Moon", "Mubtaahij", "El Kabeir", "Dortmund", "Bolo", "Firing Line", "Stanford", "International Star", "Itsaknockout", "Keen Ice", "Frosted", "War Story", "Mr Z", "American Pharoah", "Upstart", "Far Right", "Frammento", "Tale Of Verve")
-searchfor <- c("KYDerby", "KentuckyDerby", colts)
+searchfor <- c("KYDerby", "Kentucky Derby", colts)
 
 # collect tweets for six hours?
 # filterStream(file.name = "../data/KYOaks.json", track = searchfor, timeout = 21600, oauth = my_oauth)
