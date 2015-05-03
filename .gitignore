@@ -1,5 +1,6 @@
 .Rproj.user
 .Rhistory
 .RData
-data/*.RData
+data/my_auth.RData
 R/*.Rout
+data/*.json
