@@ -1,0 +1,92 @@
+---
+title: "Preparation"
+---
+
+```{r echo=FALSE, warning=FALSE}
+load("data/Oaks.RData")
+fillies <- searchfor
+load("data/Derby.RData")
+colts <- searchfor
+source("R/functions.R")
+rm(searchfor)
+```
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://durtal.github.io/KYDerby2015-twitter/preparation.html" data-text="Kentucky Derby 2015 Twitter Analysis, Data Preparation" data-via="_RcappeR" data-related="_RcappeR" data-hashtags="rstats,KYDerby">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+## Collection
+
+I initially was going to collect tweets for just the Kentucky Derby, but to test the water I also collected tweets for the Kentucky Oaks.  I used the [streamR](https://github.com/pablobarbera/streamR) R package, created by [Pablo Barberá](https://twitter.com/p_barbera).  I attempted to collect tweets from 7pm (UK time, 2pm EST) to 1am (8pm EST), this allowed a few hours before the Oaks and Derby races, and a hour or so after the race, unfortunately, on Derby day collected was ended at midnight (7pm EST), I believe due to the number of tweets collected.  A couple of popular hashtags were collected, as well as the possible runners in the Oaks and in the Derby. The table below shows the search terms for each race, when collection started, ended, the number of tweets collected, and a link .RData workspaces containing the tweets and search terms:
+
+Race | Start | End | Searched For | # Tweets | Data
+-----|-------|-----|--------------|----------|-----
+Oaks | 7pm (2pm EST) | 1am (8pm EST) | _`r fillies`_ | `r dim(oaks)[1]` | [data](https://github.com/durtal/KYDerby2015-twitter/blob/master/data/Oaks.RData)
+Derby | 7pm (2pm EST) | ~12am (7pm EST) | _`r colts`_ | `r dim(derby)[1]` | [data](https://github.com/durtal/KYDerby2015-twitter/blob/master/data/Derby.RData)
+
+There are a couple of issues worth addressing now, collection is indiscriminant, for example, tweets that mention Dortmund a runner in the Derby could be talking about the German City, or more likely the football club after which the horse was named.  Ocho Ocho Ocho, another runner in the derby, will have led tweets to be collected if they mentioned ocho just once.  Once tweets are cleaned these examples of mistaken collection need to be reduced somewhat.  The number of tweets collected per race are very different, part of this is likely due to the Derby being a race that reaches a wider audience (once a year racing fans), while Ocho Ocho Ocho, Dortmund, Stanford, Frosted and Carpe Diem are more likely to be used in tweets *not* about racing than any of the Oaks runners.
+
+## Cleaning
+
+To clean tweets, remove unnecessary characters, links, etc, I use a function I wrote specifically when I collected tweets for the Cheltenham Festival, the `tweet_cleaner` function can be seen [here](https://github.com/durtal/KYDerby2015-twitter/blob/master/R/functions.R#L14-L56).  An example of cleaning can be seen below on 6 tweets from Derby day, followed by tweets after they've been cleaned (the second tweet mentions Stanford, but is talking about the college, not the horse):
+
+```{r echo=FALSE}
+(example_tweets <- head(derby$text))
+```
+
+```{r}
+tweet_cleaner(tweets = example_tweets)
+```
+
+Cleaning tweets also makes it easier to identify tweets that _belong_ to each race, for any number of terms the function can search them out and concatenate them, so Ocho Ocho Ocho will become ochoochoocho, any tweets that mention ocho just once can then be removed.  This is required because the `streamR::filterStream` function will collect tweets that mention a term, but if there are multiple words (such as "Kentucky Derby") then those two words can appear anywhere in a tweet, not necessarily in the order desired.  In the above tweets, we want to concatenate **'Kentucky Derby'**.
+
+```{r}
+tweet_cleaner(tweets = example_tweets, concat_terms = "Kentucky Derby")
+# we can also remove punctuation
+tweet_cleaner(tweets = example_tweets, concat_terms = "Kentucky Derby", rm_punct = TRUE)
+```
+
+
+```{r echo=FALSE, cache=TRUE}
+example_tweets <- tweet_cleaner(tweets = example_tweets, concat_terms = "Kentucky Derby", rm_punct = TRUE)
+oaks$tweet <- tweet_cleaner(tweets = oaks$text, concat_terms = fillies, rename_odds = TRUE, rm_punct = TRUE)
+derby$tweet <- tweet_cleaner(tweets = derby$text, concat_terms = colts, rename_odds = TRUE, rm_punct = TRUE)
+
+oaks_runners <- c("Lovely Maria", "Shook Up", "I'm A Chatterbox", "Stellar Wind", "Birdatthewire", "Angela Renee", "Oceanwave", "Include Betty", "Condo Commando", "Eskenformoney", "Forever Unbridled", "Puca", "Money'soncharlotte", "Sarah Sis")
+y <- findtweets(tweets = oaks$tweet, searchfor = c("KYOaks", "KentuckyOaks", oaks_runners))
+oaks_mistakes <- table(y)
+oaks <- oaks[y,]
+
+derby_runners <- c("American Pharoah", "Firing Line", "Dortmund", "Frosted", "Danzig Moon", "Materiality", "Keen Ice", "Mubtaahij", "Itsaknockout", "Carpe Diem", "Frammento", "Bolo", "Mr Z", "Ocho Ocho Ocho", "Far Right", "War Story", "Tencendur", "Upstart")
+y <- findtweets(tweets = derby$tweet, searchfor = c("KYDerby", "Kentucky Derby", derby_runners))
+derby_mistakes <- table(y)
+derby <- derby[y,]
+```
+
+The time tweets were sent need to be converted ahead of plotting, the tweets were collected from the UK, so I need to convert to a US timezone.  I'll admit that this confused me somewhat, what with GMT, BST, UTC, EST, etc, in the end I believe the correct code is _EST5EDT_, but would welcome input
+
+```{r}
+oaks$time <- strptime(oaks$created_at, "%a %b %d %H:%M:%S %z %Y", tz = "EST5EDT")
+derby$time <- strptime(derby$created_at, "%a %b %d %H:%M:%S %z %Y", tz = "EST5EDT")
+```
+
+## Classifying
+
+Once tweets have been cleaned, it is easier to remove mistakenly collected tweets, in the above 6 tweets we want to identify if they contain a runner or phrase we want.  The `findtweets` function (seen [here](https://github.com/durtal/KYDerby2015-twitter/blob/master/R/functions.R#L65-L82)) looks through cleaned tweets for any mention of a collection of terms, and returns a logical vector.  All the tweets above mention either a runner (Stanford mentions will now be removed due to the horse being a non-runner) or a phrase we tracked via `streamR::filterStream`, so as an example of `findtweets` we'll just look for "Kentucky Derby":
+
+```{r}
+findtweets(tweets = example_tweets, searchfor = "Kentucky Derby")
+```
+
+For the oaks there were **`r oaks_mistakes[[1]]`** mistakenly collected tweets, ie. a runner, perhaps Oaks runner Sarah Sis, appears in a tweet, but the tweet is "my **sis**ter **Sarah** ...".  For the derby there were **`r derby_mistakes[[1]]`**.  Ideally removing other tweets, such as those that mention the football team Dortmund rather than the horse, would be carried out, but this is a very tricky task, any outside input would be welcomed!!
+
+## Sentiment
+
+Finally, I score the sentiment of a tweet based on the words in the positive and negative lexicons found in the [data folder](https://github.com/durtal/KYDerby2015-twitter/tree/master/data) and the `senti_score` function (found [here](https://github.com/durtal/KYDerby2015-twitter/blob/master/R/functions.R#L109-L137) ).
+
+```{r eval=FALSE}
+positive <- scan("data/positive-lexicon.txt", what = "character")
+negative <- scan("data/negative-lexicon.txt", what = "character")
+
+oaks$senti_score <- senti_score(tweets = oaks$tweet, pos_words = positive, neg_words = negative)
+derby$senti_score <- senti_score(tweets = derby$tweet, pos_words = positive, neg_words = negative)
+```

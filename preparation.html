@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Preparation</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/united.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background-color: #FCFCFC;
+	text-align: justify;
+}
+@media (max-width: 979px) {
+	body {
+		padding-top: 0;
+	}
+}
+/* offset scroll position for anchor links (for fixed navbar) */
+@media (min-width: 980px) {
+	.section h2 {
+		padding-top: 52px;
+		margin-top: -52px;
+	}
+	.section h3 {
+		padding-top: 52px;
+		margin-top: -52px;
+	}
+}
+p {
+	font-size: 13px;
+}
+/* don't use link color in navbar */
+.dropdown-menu>li>a {
+	color: black;
+}
+/* some padding for disqus */
+#disqus_thread {
+	margin-top: 45px;
+}
+
+</style>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #0000ff; }
+code > span.ch { color: #008080; }
+code > span.st { color: #008080; }
+code > span.co { color: #008000; }
+code > span.ot { color: #ff4000; }
+code > span.al { color: #ff0000; }
+code > span.er { font-weight: bold; }
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
+}
+</style>
+<div class="container-fluid main-container">
+
+<h1>Kentucky Derby 2015 - Twitter Analysis</h1>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://durtal.github.io/">durtal.github.io</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Intro</a></li>
+                <li><a href="preparation.html">Preparation</a></li>
+                <li><a href="ky-oaks.html">KY Oaks</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="https://github.com/durtal/KYDerby2015-twitter"><i class="fa fa-github fa-lg"></i>
+                </a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div id="header">
+<h1 class="title">Preparation</h1>
+</div>
+
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://durtal.github.io/KYDerby2015-twitter/preparation.html" data-text="Kentucky Derby 2015 Twitter Analysis, Data Preparation" data-via="_RcappeR" data-related="_RcappeR" data-hashtags="rstats,KYDerby">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<div id="collection" class="section level2">
+<h2>Collection</h2>
+<p>I initially was going to collect tweets for just the Kentucky Derby, but to test the water I also collected tweets for the Kentucky Oaks. I used the <a href="https://github.com/pablobarbera/streamR">streamR</a> R package, created by <a href="https://twitter.com/p_barbera">Pablo BarberÃ¡</a>. I attempted to collect tweets from 7pm (UK time, 2pm EST) to 1am (8pm EST), this allowed a few hours before the Oaks and Derby races, and a hour or so after the race, unfortunately, on Derby day collected was ended at midnight (7pm EST), I believe due to the number of tweets collected. A couple of popular hashtags were collected, as well as the possible runners in the Oaks and in the Derby. The table below shows the search terms for each race, when collection started, ended, the number of tweets collected, and a link .RData workspaces containing the tweets and search terms:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Race</th>
+<th align="left">Start</th>
+<th align="left">End</th>
+<th align="left">Searched For</th>
+<th align="left"># Tweets</th>
+<th align="left">Data</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Oaks</td>
+<td align="left">7pm (2pm EST)</td>
+<td align="left">1am (8pm EST)</td>
+<td align="left"><em>KYOaks, KentuckyOaks, Forever Unbridled, Shook Up, Include Betty, Eskenformoney, Condo Commando, Angela Renee, Lovely Maria, I’m A Chatterbox, Money’soncharlotte, Oceanwave, Sarah Sis, Stellar Wind, Birdatthewire, Puca, Peace And War</em></td>
+<td align="left">7973</td>
+<td align="left"><a href="https://github.com/durtal/KYDerby2015-twitter/blob/master/data/Oaks.RData">data</a></td>
+</tr>
+<tr class="even">
+<td align="left">Derby</td>
+<td align="left">7pm (2pm EST)</td>
+<td align="left">~12am (7pm EST)</td>
+<td align="left"><em>KYDerby, Kentucky Derby, Ocho Ocho Ocho, Carpe Diem, Materiality, Tencendur, Danzig Moon, Mubtaahij, El Kabeir, Dortmund, Bolo, Firing Line, Stanford, International Star, Itsaknockout, Keen Ice, Frosted, War Story, Mr Z, American Pharoah, Upstart, Far Right, Frammento, Tale Of Verve</em></td>
+<td align="left">148725</td>
+<td align="left"><a href="https://github.com/durtal/KYDerby2015-twitter/blob/master/data/Derby.RData">data</a></td>
+</tr>
+</tbody>
+</table>
+<p>There are a couple of issues worth addressing now, collection is indiscriminant, for example, tweets that mention Dortmund a runner in the Derby could be talking about the German City, or more likely the football club after which the horse was named. Ocho Ocho Ocho, another runner in the derby, will have led tweets to be collected if they mentioned ocho just once. Once tweets are cleaned these examples of mistaken collection need to be reduced somewhat. The number of tweets collected per race are very different, part of this is likely due to the Derby being a race that reaches a wider audience (once a year racing fans), while Ocho Ocho Ocho, Dortmund, Stanford, Frosted and Carpe Diem are more likely to be used in tweets <em>not</em> about racing than any of the Oaks runners.</p>
+</div>
+<div id="cleaning" class="section level2">
+<h2>Cleaning</h2>
+<p>To clean tweets, remove unnecessary characters, links, etc, I use a function I wrote specifically when I collected tweets for the Cheltenham Festival, the <code>tweet_cleaner</code> function can be seen <a href="https://github.com/durtal/KYDerby2015-twitter/blob/master/R/functions.R#L14-L56">here</a>. An example of cleaning can be seen below on 6 tweets from Derby day, followed by tweets after they’ve been cleaned (the second tweet mentions Stanford, but is talking about the college, not the horse):</p>
+<pre><code>## [1] &quot;RT @SportsCenter: So this is happening today:\n\n• Day 3, NFL Draft\n• NHL Playoffs\n• Yankees at Red Sox\n• Kentucky Derby   \n• Spurs vs Clippe…&quot;
+## [2] &quot;RT @SBNationCFB: Most picks through four:\n\nFlorida State: 7\nMiami: 6\nAlabama, Florida, Louisville, Stanford: 5&quot;                                
+## [3] &quot;Are you a fan of the Kentucky Derby? Try these cocktails out for something different.  http://t.co/sdlBJrHa7t&quot;                                     
+## [4] &quot;RT @SportsCenter: So this is happening today:\n\n• Day 3, NFL Draft\n• NHL Playoffs\n• Yankees at Red Sox\n• Kentucky Derby   \n• Spurs vs Clippe…&quot;
+## [5] &quot;Goal is to one day go to the Kentucky Derby and wear a big hat &lt;ed&gt;&lt;U+00A0&gt;&lt;U+00BD&gt;&lt;ed&gt;&lt;U+00B1&gt;&lt;U+0097&gt;&lt;ed&gt;&lt;U+00A0&gt;&lt;U+00BD&gt;&lt;ed&gt;&lt;U+00B1&gt;&lt;U+0092&gt;&quot;   
+## [6] &quot;RT @ESPNNFL: The Super Bowl champs are at the Kentucky Derby. (via Tom Brady/Facebook) http://t.co/ckxBtiBQY8&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tweet_cleaner</span>(<span class="dt">tweets =</span> example_tweets)</code></pre>
+<pre><code>## [1] &quot;rt @sportscenter: so this is happening today: day , nfl draft nhl playoffs yankees at red sox kentucky derby spurs vs clippe&quot;
+## [2] &quot;rt @sbnationcfb: most picks through four: florida state: miami: alabama, florida, louisville, stanford:&quot;                     
+## [3] &quot;are you a fan of the kentucky derby? try these cocktails out for something different.&quot;                                       
+## [4] &quot;rt @sportscenter: so this is happening today: day , nfl draft nhl playoffs yankees at red sox kentucky derby spurs vs clippe&quot;
+## [5] &quot;goal is to one day go to the kentucky derby and wear a big hat&quot;                                                              
+## [6] &quot;rt @espnnfl: the super bowl champs are at the kentucky derby. (via tom brady/facebook)&quot;</code></pre>
+<p>Cleaning tweets also makes it easier to identify tweets that <em>belong</em> to each race, for any number of terms the function can search them out and concatenate them, so Ocho Ocho Ocho will become ochoochoocho, any tweets that mention ocho just once can then be removed. This is required because the <code>streamR::filterStream</code> function will collect tweets that mention a term, but if there are multiple words (such as “Kentucky Derby”) then those two words can appear anywhere in a tweet, not necessarily in the order desired. In the above tweets, we want to concatenate <strong>‘Kentucky Derby’</strong>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tweet_cleaner</span>(<span class="dt">tweets =</span> example_tweets, <span class="dt">concat_terms =</span> <span class="st">&quot;Kentucky Derby&quot;</span>)</code></pre>
+<pre><code>## [1] &quot;rt @sportscenter: so this is happening today: day , nfl draft nhl playoffs yankees at red sox kentuckyderby spurs vs clippe&quot;
+## [2] &quot;rt @sbnationcfb: most picks through four: florida state: miami: alabama, florida, louisville, stanford:&quot;                    
+## [3] &quot;are you a fan of the kentuckyderby ? try these cocktails out for something different.&quot;                                      
+## [4] &quot;rt @sportscenter: so this is happening today: day , nfl draft nhl playoffs yankees at red sox kentuckyderby spurs vs clippe&quot;
+## [5] &quot;goal is to one day go to the kentuckyderby and wear a big hat&quot;                                                              
+## [6] &quot;rt @espnnfl: the super bowl champs are at the kentuckyderby . (via tom brady/facebook)&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># we can also remove punctuation</span>
+<span class="kw">tweet_cleaner</span>(<span class="dt">tweets =</span> example_tweets, <span class="dt">concat_terms =</span> <span class="st">&quot;Kentucky Derby&quot;</span>, <span class="dt">rm_punct =</span> <span class="ot">TRUE</span>)</code></pre>
+<pre><code>## [1] &quot;rt sportscenter so this is happening today day nfl draft nhl playoffs yankees at red sox kentuckyderby spurs vs clippe&quot;
+## [2] &quot;rt sbnationcfb most picks through four florida state miami alabama florida louisville stanford&quot;                        
+## [3] &quot;are you a fan of the kentuckyderby try these cocktails out for something different&quot;                                    
+## [4] &quot;rt sportscenter so this is happening today day nfl draft nhl playoffs yankees at red sox kentuckyderby spurs vs clippe&quot;
+## [5] &quot;goal is to one day go to the kentuckyderby and wear a big hat&quot;                                                         
+## [6] &quot;rt espnnfl the super bowl champs are at the kentuckyderby via tom brady facebook&quot;</code></pre>
+<p>The time tweets were sent need to be converted ahead of plotting, the tweets were collected from the UK, so I need to convert to a US timezone. I’ll admit that this confused me somewhat, what with GMT, BST, UTC, EST, etc, in the end I believe the correct code is <em>EST5EDT</em>, but would welcome input</p>
+<pre class="sourceCode r"><code class="sourceCode r">oaks$time &lt;-<span class="st"> </span><span class="kw">strptime</span>(oaks$created_at, <span class="st">&quot;%a %b %d %H:%M:%S %z %Y&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;EST5EDT&quot;</span>)
+derby$time &lt;-<span class="st"> </span><span class="kw">strptime</span>(derby$created_at, <span class="st">&quot;%a %b %d %H:%M:%S %z %Y&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;EST5EDT&quot;</span>)</code></pre>
+</div>
+<div id="classifying" class="section level2">
+<h2>Classifying</h2>
+<p>Once tweets have been cleaned, it is easier to remove mistakenly collected tweets, in the above 6 tweets we want to identify if they contain a runner or phrase we want. The <code>findtweets</code> function (seen <a href="https://github.com/durtal/KYDerby2015-twitter/blob/master/R/functions.R#L65-L82">here</a>) looks through cleaned tweets for any mention of a collection of terms, and returns a logical vector. All the tweets above mention either a runner (Stanford mentions will now be removed due to the horse being a non-runner) or a phrase we tracked via <code>streamR::filterStream</code>, so as an example of <code>findtweets</code> we’ll just look for “Kentucky Derby”:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">findtweets</span>(<span class="dt">tweets =</span> example_tweets, <span class="dt">searchfor =</span> <span class="st">&quot;Kentucky Derby&quot;</span>)</code></pre>
+<pre><code>## [1]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE</code></pre>
+<p>For the oaks there were <strong>763</strong> mistakenly collected tweets, ie. a runner, perhaps Oaks runner Sarah Sis, appears in a tweet, but the tweet is “my <strong>sis</strong>ter <strong>Sarah</strong> …”. For the derby there were <strong>17439</strong>. Ideally removing other tweets, such as those that mention the football team Dortmund rather than the horse, would be carried out, but this is a very tricky task, any outside input would be welcomed!!</p>
+</div>
+<div id="sentiment" class="section level2">
+<h2>Sentiment</h2>
+<p>Finally, I score the sentiment of a tweet based on the words in the positive and negative lexicons found in the <a href="https://github.com/durtal/KYDerby2015-twitter/tree/master/data">data folder</a> and the <code>senti_score</code> function (found <a href="https://github.com/durtal/KYDerby2015-twitter/blob/master/R/functions.R#L109-L137">here</a> ).</p>
+<pre class="sourceCode r"><code class="sourceCode r">positive &lt;-<span class="st"> </span><span class="kw">scan</span>(<span class="st">&quot;data/positive-lexicon.txt&quot;</span>, <span class="dt">what =</span> <span class="st">&quot;character&quot;</span>)
+negative &lt;-<span class="st"> </span><span class="kw">scan</span>(<span class="st">&quot;data/negative-lexicon.txt&quot;</span>, <span class="dt">what =</span> <span class="st">&quot;character&quot;</span>)
+
+oaks$senti_score &lt;-<span class="st"> </span><span class="kw">senti_score</span>(<span class="dt">tweets =</span> oaks$tweet, <span class="dt">pos_words =</span> positive, <span class="dt">neg_words =</span> negative)
+derby$senti_score &lt;-<span class="st"> </span><span class="kw">senti_score</span>(<span class="dt">tweets =</span> derby$tweet, <span class="dt">pos_words =</span> positive, <span class="dt">neg_words =</span> negative)</code></pre>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+
+</body>
+</html>
