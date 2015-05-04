@@ -10,7 +10,7 @@
 
 
 
-<title>Kentucky Oaks</title>
+<title></title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -109,39 +109,13 @@ img {
     </div>
 </nav>
 
-<div id="header">
-<h1 class="title">Kentucky Oaks</h1>
-</div>
 
 
-<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://durtal.github.io/KYDerby2015-twitter/ky-oaks.html" data-text="Kentucky Derby 2015 Twitter Analysis, the Kentucky Oaks" data-via="_RcappeR" data-related="_RcappeR" data-hashtags="rstats,KYDerby">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-<p>The Oaks was run on Friday 1st May, and was contested by 14 3year old fillies. Tweets mentioning these runners were collected, as well as tweets mentioning “KYOaks” and “KentuckyOaks”. There were only <strong>7210</strong> tweets collected, which is a very small number, dwarfed by the number collected for the derby. The plot below shows the timeline of tweets sent.</p>
-<p><img src="ky-oaks_files/figure-html/unnamed-chunk-2-1.png" title="" alt="" width="650px" height="400px" style="display: block; margin: auto;" /></p>
-<div id="runners" class="section level2">
-<h2>Runners</h2>
-<p>The two plots below show the proportion of tweets that mention each of the 14 Oaks contenders, sent before the race started on the left, and after the race was completed on the right. The eventual winner, <strong>Lovely Maria</strong> was the 6th most tweeted about horse, mentioned in 8.67% of tweets . The pre race favourite Stellar Wind was mentioned in 15.95, she was a 16/5 favourite (23.8%).</p>
-<p>Post race, the focus was unsurprisingly on the winner, mentioned in 76.13% of tweets, with runner up <strong>Shook Up</strong> mentioned in 8.51%.</p>
-<div class="row">
-<div class="col-sm-6">
-<p><img src="ky-oaks_files/figure-html/unnamed-chunk-4-1.png" title="" alt="" width="550px" height="400px" style="display: block; margin: auto;" /></p>
-</div>
-<div class="col-sm-6">
-<p><img src="ky-oaks_files/figure-html/unnamed-chunk-5-1.png" title="" alt="" width="550px" height="400px" style="display: block; margin: auto;" /></p>
-</div>
-</div>
-</div>
-<div id="sentiment" class="section level2">
-<h2>Sentiment</h2>
-<p>The sentiment of tweets can be gauged (see <a href="preparation.html">sentiment section</a>) both before the race started and after the race. The plots below show the distributions, the average sentiment pre race was <strong>0.519</strong>, while post race the average sentiment increased marginally to <strong>0.82</strong></p>
-<div class="row">
-<div class="col-sm-6">
-<p><img src="ky-oaks_files/figure-html/unnamed-chunk-6-1.png" title="" alt="" width="550px" height="400px" style="display: block; margin: auto;" /></p>
-</div>
-<div class="col-sm-6">
-<p><img src="ky-oaks_files/figure-html/unnamed-chunk-7-1.png" title="" alt="" width="550px" height="400px" style="display: block; margin: auto;" /></p>
-</div>
-</div>
+<div id="kentucky-derby-2015-on-twitter" class="section level1">
+<h1>Kentucky Derby 2015 on twitter</h1>
+<p>Small project to collect tweets using the <a href="https://github.com/pablobarbera/streamR">streamR</a> R package whose subject is the 2015 Kentucky Derby. Tweets will be collected if they contain any of the possible runners, as well as a few hashtags (such as #KYDerby) - suggestions for other words/phrases/hashtags to collect would be welcomed (find me <span class="citation">[@_RcappeR]</span>(<a href="https://twitter.com/_RcappeR" class="uri">https://twitter.com/_RcappeR</a>) or <span class="citation">[@UTVilla]</span>(<a href="https://twitter.com/UTVilla" class="uri">https://twitter.com/UTVilla</a>)).</p>
+<p>For an idea of what the output might look like, I did something similar for the 2015 Cheltenham Festival, eventually building a dedicated site using <a href="http://rmarkdown.rstudio.com/">rmarkdown</a>, which can be seen <a href="http://durtal.github.io/cheltenham-festival-2015-twitter/index.html">here</a>.</p>
+<p>The <strong>R</strong> folder will hold various scripts whose purpose is to collect, clean, or process the returned data, while the <strong>data</strong> folder will contain R workspaces of the data, as well as positive and negative lexicons.</p>
 </div>
 
 

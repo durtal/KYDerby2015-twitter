@@ -4,3 +4,100 @@ title: "Kentucky Oaks"
 
 <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://durtal.github.io/KYDerby2015-twitter/ky-oaks.html" data-text="Kentucky Derby 2015 Twitter Analysis, the Kentucky Oaks" data-via="_RcappeR" data-related="_RcappeR" data-hashtags="rstats,KYDerby">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+load("data/clean_data.RData")
+source("R/functions.R")
+
+library(ggplot2)
+library(dplyr)
+
+palette <- wesanderson::wes_palette("Darjeeling2")
+```
+
+The Oaks was run on Friday 1st May, and was contested by `r length(oaks_runners)` 3year old fillies.  Tweets mentioning these runners were collected, as well as tweets mentioning "KYOaks" and "KentuckyOaks".  There were only **`r length(oaks$tweet)`** tweets collected, which is a very small number, dwarfed by the number collected for the derby.  The plot below shows the timeline of tweets sent.
+
+```{r echo=FALSE, out.width="650px", out.height="400px", fig.align='center'}
+oaks$sent_before <- ifelse(oaks$time <= as.POSIXct("2015-05-01 17:49", tz = "EST5EDT"), TRUE, FALSE)
+
+ggplot(oaks, aes(x = time, fill = sent_before)) +
+    geom_bar(binwidth = 60) +
+    scale_fill_manual(values = palette, name = "Tweet Sent\nBefore") +
+    labs(title = "Kentucky Oaks 2015\nTweets sent per minute") +
+    RcappeR::theme_rcapper()
+```
+
+## Runners
+
+```{r echo=FALSE}
+oaks_runners_list <- as.list(oaks_runners)
+names(oaks_runners_list) <- oaks_runners
+
+before <- lapply(oaks_runners_list, function(x) {
+    length(findtweets(subset(oaks, sent_before)$tweet, searchfor = x, counts = TRUE))
+})
+before <- plyr::ldply(before)
+names(before) <- c("Horse", "Tweets")
+
+before <- before %>%
+    arrange(desc(Tweets)) %>%
+    mutate(Horse = factor(Horse, levels = Horse), Prop = Tweets / sum(Tweets))
+
+after <- lapply(oaks_runners_list, function(x) {
+    length(findtweets(subset(oaks, !sent_before)$tweet, searchfor = x, counts = TRUE))
+})
+after <- plyr::ldply(after)
+names(after) <- c("Horse", "Tweets")
+
+after <- after %>%
+    arrange(desc(Tweets)) %>%
+    mutate(Horse = factor(Horse, levels = Horse), Prop = Tweets / sum(Tweets))
+```
+
+The two plots below show the proportion of tweets that mention each of the `r length(oaks_runners)` Oaks contenders, sent before the race started on the left, and after the race was completed on the right.  The eventual winner, **Lovely Maria** was the 6th most tweeted about horse, mentioned in `r round(subset(before, Horse == "Lovely Maria")$Prop * 100, 2)`% of tweets .  The pre race favourite Stellar Wind was mentioned in `r round(subset(before, Horse == "Stellar Wind")$Prop * 100, 2)`, she was a 16/5 favourite (23.8%).
+
+Post race, the focus was unsurprisingly on the winner, mentioned in `r round(subset(after, Horse == "Lovely Maria")$Prop * 100, 2)`% of tweets, with runner up **Shook Up** mentioned in `r round(subset(before, Horse == "Shook Up")$Prop * 100, 2)`%.
+
+<div class="row">
+<div class="col-sm-6">
+```{r echo=FALSE, out.width="550px", out.height="400px", fig.align='center'}
+ggplot(before, aes(x = Horse, y = Prop)) +
+    geom_bar(stat = "identity", fill = palette[2]) +
+    labs(title = "Proportion of tweets that mention each Runner\n(tweets sent before start)") +
+    RcappeR::theme_rcapper() +
+    theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+</div>
+<div class="col-sm-6">
+```{r echo=FALSE, out.width="550px", out.height="400px", fig.align='center'}
+ggplot(after, aes(x = Horse, y = Prop)) +
+    geom_bar(stat = "identity", fill = palette[1]) +
+    labs(title = "Proportion of tweets that mention each Runner\n(tweets sent after start)") +
+    RcappeR::theme_rcapper() +
+    theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+</div>
+</div>
+
+## Sentiment
+
+The sentiment of tweets can be gauged (see [sentiment section](preparation.html)) both before the race started and after the race.  The plots below show the distributions, the average sentiment pre race was **`r round(mean(subset(oaks, sent_before)$senti_score), 3)`**, while post race the average sentiment increased marginally to **`r round(mean(subset(oaks, !sent_before)$senti_score), 2)`**
+
+<div class="row">
+<div class="col-sm-6">
+```{r echo=FALSE, out.width="550px", out.height="400px", fig.align='center'}
+ggplot(subset(oaks, sent_before), aes(x = factor(senti_score))) + 
+    geom_bar(fill = palette[2]) + 
+    RcappeR::theme_rcapper() + 
+    labs(x = "Sentiment", title = "Kentucky Oaks Sentiment\n(Tweets sent before race)")
+```
+</div>
+<div class="col-sm-6">
+```{r echo=FALSE, out.width="550px", out.height="400px", fig.align='center'}
+ggplot(subset(oaks, !sent_before), aes(x = factor(senti_score))) + 
+    geom_bar(fill = palette[1]) + 
+    RcappeR::theme_rcapper() + 
+    labs(x = "Sentiment", title = "Kentucky Oaks Sentiment\n(Tweets sent after race)")
+```
+</div>
+</div>
