@@ -96,6 +96,10 @@ img {
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="index.html">Intro</a></li>
+                <li><a href="preparation.html">Preparation</a></li>
+                <li><a href="ky-oaks.html">KY Oaks</a></li>
+                <li><a href="ky-derby.html">KY Derby</a></li>
+                <li><a href="racing-problems.html">Other</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="https://github.com/durtal/KYDerby2015-twitter"><i class="fa fa-github fa-lg"></i>
@@ -120,57 +124,6 @@ Would love to see something like this for the 2015 <a href="https://twitter.com/
 — Railbird (<span class="citation">@railbird</span>) <a href="https://twitter.com/railbird/status/585128431060418563">April 6, 2015</a>
 </blockquote>
 <p>This site will host some simple analysis and plots, everything, data, code, plots, are available in this <a href="https://github.com/durtal/KYDerby2015-twitter">repo</a> and its various branches. Any contributions, such as posts would be most welcome, get in touch <a href="https://twitter.com/_RcappeR">@_RcappeR</a>.</p>
-<div id="collection" class="section level2">
-<h2>Collection</h2>
-<p>I initially was going to collect tweets for just the Kentucky Derby, but to test the water I also collected tweets for the Kentucky Oaks. I used the <a href="https://github.com/pablobarbera/streamR">streamR</a> R package, created by <a href="https://twitter.com/p_barbera">Pablo Barberá</a>. I attempted to collect tweets from 7pm (UK time, 2pm EST) to 1am (8pm EST), this allowed a few hours before the Oaks and Derby races, and a hour or so after the race, unfortunately, on Derby day collected was ended at midnight (7pm EST), I believe due to the number of tweets collected. A couple of popular hashtags were collected, as well as the possible runners in the Oaks and in the Derby. The table below shows the search terms for each race, when collection started, ended, the number of tweets collected, and a link .RData workspaces containing the tweets and search terms:</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Race</th>
-<th align="left">Start</th>
-<th align="left">End</th>
-<th align="left">Searched For</th>
-<th align="left"># Tweets</th>
-<th align="left">Data</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Oaks</td>
-<td align="left">7pm (2pm EST)</td>
-<td align="left">1am (8pm EST)</td>
-<td align="left"><em>KYOaks, KentuckyOaks, Forever Unbridled, Shook Up, Include Betty, Eskenformoney, Condo Commando, Angela Renee, Lovely Maria, I’m A Chatterbox, Money’soncharlotte, Oceanwave, Sarah Sis, Stellar Wind, Birdatthewire, Puca, Peace And War</em></td>
-<td align="left">7973</td>
-<td align="left"><a href="https://github.com/durtal/KYDerby2015-twitter/blob/master/data/Oaks.RData">data</a></td>
-</tr>
-<tr class="even">
-<td align="left">Derby</td>
-<td align="left">7pm (2pm EST)</td>
-<td align="left">~12am (7pm EST)</td>
-<td align="left"><em>KYDerby, Kentucky Derby, Ocho Ocho Ocho, Carpe Diem, Materiality, Tencendur, Danzig Moon, Mubtaahij, El Kabeir, Dortmund, Bolo, Firing Line, Stanford, International Star, Itsaknockout, Keen Ice, Frosted, War Story, Mr Z, American Pharoah, Upstart, Far Right, Frammento, Tale Of Verve</em></td>
-<td align="left">148725</td>
-<td align="left"><a href="https://github.com/durtal/KYDerby2015-twitter/blob/master/data/Derby.RData">data</a></td>
-</tr>
-</tbody>
-</table>
-<p>There are a couple of issues worth addressing now, collection is indiscriminant, for example, tweets that mention Dortmund a runner in the Derby could be talking about the German City, or more likely the football club after which the horse was named. Ocho Ocho Ocho, another runner in the derby, will have led tweets to be collected if they mentioned ocho just once. Once tweets are cleaned these examples of mistaken collection need to be reduced somewhat. The number of tweets collected per race are very different, part of this is likely due to the Derby being a race that reaches a wider audience (once a year racing fans), while Ocho Ocho Ocho, Dortmund, Stanford, Frosted and Carpe Diem are more likely to be used in tweets <em>not</em> about racing than any of the Oaks runners.</p>
-</div>
-<div id="cleaning" class="section level2">
-<h2>Cleaning</h2>
-<p>To clean tweets, remove unnecessary characters, links, etc, I use a function I wrote specifically when I collected tweets for the Cheltenham Festival, the function can be seen <a href="https://github.com/durtal/KYDerby2015-twitter/blob/master/R/functions.R#L14-L56">here</a>. Cleaning tweets also makes it easier to identify tweets that <em>belong</em> to each race, for any number of terms the function will search them out and concatenate them, so Ocho Ocho Ocho will become ochoochoocho, any tweets that mention ocho just once can then be removed. An example of cleaning can be seen below on 6 tweets from Derby day, followed by tweets after they’ve been cleaned (the second tweet mentions Stanford, but is talking about the college, not the horse):</p>
-<pre><code>## [1] &quot;RT @SportsCenter: So this is happening today:\n\n• Day 3, NFL Draft\n• NHL Playoffs\n• Yankees at Red Sox\n• Kentucky Derby   \n• Spurs vs Clippe…&quot;
-## [2] &quot;RT @SBNationCFB: Most picks through four:\n\nFlorida State: 7\nMiami: 6\nAlabama, Florida, Louisville, Stanford: 5&quot;                                
-## [3] &quot;Are you a fan of the Kentucky Derby? Try these cocktails out for something different.  http://t.co/sdlBJrHa7t&quot;                                     
-## [4] &quot;RT @SportsCenter: So this is happening today:\n\n• Day 3, NFL Draft\n• NHL Playoffs\n• Yankees at Red Sox\n• Kentucky Derby   \n• Spurs vs Clippe…&quot;
-## [5] &quot;Goal is to one day go to the Kentucky Derby and wear a big hat &lt;ed&gt;&lt;U+00A0&gt;&lt;U+00BD&gt;&lt;ed&gt;&lt;U+00B1&gt;&lt;U+0097&gt;&lt;ed&gt;&lt;U+00A0&gt;&lt;U+00BD&gt;&lt;ed&gt;&lt;U+00B1&gt;&lt;U+0092&gt;&quot;   
-## [6] &quot;RT @ESPNNFL: The Super Bowl champs are at the Kentucky Derby. (via Tom Brady/Facebook) http://t.co/ckxBtiBQY8&quot;</code></pre>
-<pre><code>## [1] &quot;rt sportscenter so this is happening today day nfl draft nhl playoffs yankees at red sox kentuckyderby spurs vs clippe&quot;
-## [2] &quot;rt sbnationcfb most picks through four florida state miami alabama florida louisville stanford&quot;                        
-## [3] &quot;are you a fan of the kentuckyderby try these cocktails out for something different&quot;                                    
-## [4] &quot;rt sportscenter so this is happening today day nfl draft nhl playoffs yankees at red sox kentuckyderby spurs vs clippe&quot;
-## [5] &quot;goal is to one day go to the kentuckyderby and wear a big hat&quot;                                                         
-## [6] &quot;rt espnnfl the super bowl champs are at the kentuckyderby via tom brady facebook&quot;</code></pre>
-</div>
 
 
 </div>

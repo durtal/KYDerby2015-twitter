@@ -2,14 +2,6 @@
 title: "Intro"
 ---
 
-```{r echo=FALSE, warning=FALSE}
-load("data/Oaks.RData")
-fillies <- searchfor
-load("data/Derby.RData")
-colts <- searchfor
-source("R/functions.R")
-```
-
 <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://durtal.github.io/KYDerby2015-twitter/index.html" data-text="Kentucky Derby 2015 Twitter Analysis, Intro" data-via="_RcappeR" data-related="_RcappeR" data-hashtags="rstats,KYDerby">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
@@ -18,27 +10,3 @@ Following on from my look at how racing fans interacted on twitter during the 20
 <blockquote class="twitter-tweet" lang="en-gb"><p>Would love to see something like this for the 2015 <a href="https://twitter.com/hashtag/KYDerby?src=hash">#KYDerby</a>, <a href="https://twitter.com/TwitterData">@TwitterData</a>: <a href="https://t.co/oBrNY0JVVb">https://t.co/oBrNY0JVVb</a></p>&mdash; Railbird (@railbird) <a href="https://twitter.com/railbird/status/585128431060418563">April 6, 2015</a></blockquote>
 
 This site will host some simple analysis and plots, everything, data, code, plots, are available in this [repo](https://github.com/durtal/KYDerby2015-twitter) and its various branches.  Any contributions, such as posts would be most welcome, get in touch [@\_RcappeR](https://twitter.com/_RcappeR).
-
-## Collection
-
-I initially was going to collect tweets for just the Kentucky Derby, but to test the water I also collected tweets for the Kentucky Oaks.  I used the [streamR](https://github.com/pablobarbera/streamR) R package, created by [Pablo Barberá](https://twitter.com/p_barbera).  I attempted to collect tweets from 7pm (UK time, 2pm EST) to 1am (8pm EST), this allowed a few hours before the Oaks and Derby races, and a hour or so after the race, unfortunately, on Derby day collected was ended at midnight (7pm EST), I believe due to the number of tweets collected.  A couple of popular hashtags were collected, as well as the possible runners in the Oaks and in the Derby. The table below shows the search terms for each race, when collection started, ended, the number of tweets collected, and a link .RData workspaces containing the tweets and search terms:
-
-Race | Start | End | Searched For | # Tweets | Data
------|-------|-----|--------------|----------|-----
-Oaks | 7pm (2pm EST) | 1am (8pm EST) | _`r fillies`_ | `r dim(oaks)[1]` | [data](https://github.com/durtal/KYDerby2015-twitter/blob/master/data/Oaks.RData)
-Derby | 7pm (2pm EST) | ~12am (7pm EST) | _`r colts`_ | `r dim(derby)[1]` | [data](https://github.com/durtal/KYDerby2015-twitter/blob/master/data/Derby.RData)
-
-There are a couple of issues worth addressing now, collection is indiscriminant, for example, tweets that mention Dortmund a runner in the Derby could be talking about the German City, or more likely the football club after which the horse was named.  Ocho Ocho Ocho, another runner in the derby, will have led tweets to be collected if they mentioned ocho just once.  Once tweets are cleaned these examples of mistaken collection need to be reduced somewhat.  The number of tweets collected per race are very different, part of this is likely due to the Derby being a race that reaches a wider audience (once a year racing fans), while Ocho Ocho Ocho, Dortmund, Stanford, Frosted and Carpe Diem are more likely to be used in tweets *not* about racing than any of the Oaks runners.
-
-## Cleaning
-
-To clean tweets, remove unnecessary characters, links, etc, I use a function I wrote specifically when I collected tweets for the Cheltenham Festival, the function can be seen [here](https://github.com/durtal/KYDerby2015-twitter/blob/master/R/functions.R#L14-L56).  Cleaning tweets also makes it easier to identify tweets that _belong_ to each race, for any number of terms the function will search them out and concatenate them, so Ocho Ocho Ocho will become ochoochoocho, any tweets that mention ocho just once can then be removed.  An example of cleaning can be seen below on 6 tweets from Derby day, followed by tweets after they've been cleaned (the second tweet mentions Stanford, but is talking about the college, not the horse):
-
-```{r echo=FALSE, warning=FALSE}
-(sixtweets <- head(derby$text))
-```
-
-```{r echo=FALSE, warning=FALSE}
-tweet_cleaner(tweets = sixtweets, concat_terms = colts, rm_punct = T, rename_odds = T)
-```
-
