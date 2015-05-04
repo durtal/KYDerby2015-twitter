@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Racing Problems</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/united.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background-color: #FCFCFC;
+	text-align: justify;
+}
+@media (max-width: 979px) {
+	body {
+		padding-top: 0;
+	}
+}
+/* offset scroll position for anchor links (for fixed navbar) */
+@media (min-width: 980px) {
+	.section h2 {
+		padding-top: 52px;
+		margin-top: -52px;
+	}
+	.section h3 {
+		padding-top: 52px;
+		margin-top: -52px;
+	}
+}
+p {
+	font-size: 13px;
+}
+/* don't use link color in navbar */
+.dropdown-menu>li>a {
+	color: black;
+}
+/* some padding for disqus */
+#disqus_thread {
+	margin-top: 45px;
+}
+
+</style>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
+}
+</style>
+<div class="container-fluid main-container">
+
+<h1>Kentucky Derby 2015 - Twitter Analysis</h1>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://durtal.github.io/">durtal.github.io</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Intro</a></li>
+                <li><a href="preparation.html">Preparation</a></li>
+                <li><a href="ky-oaks.html">KY Oaks</a></li>
+                <li><a href="ky-derby.html">KY Derby</a></li>
+                <li><a href="racing-problems.html">Other</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="https://github.com/durtal/KYDerby2015-twitter"><i class="fa fa-github fa-lg"></i>
+                </a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div id="header">
+<h1 class="title">Racing Problems</h1>
+</div>
+
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://durtal.github.io/KYDerby2015-twitter/racing-problems.html" data-text="Kentucky Derby 2015 Twitter Analysis, Racing Problems" data-via="_RcappeR" data-related="_RcappeR" data-hashtags="rstats,KYDerby">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<p>This is just a short post about a few observations having tracked tweets for the Kentucky Oaks and the Derby, while this post has been borne out of following US racing, I believe similar applies to other racing jurisdictions.</p>
+<p>On Friday, after the Oaks, I tweeted the following.</p>
+<blockquote class="twitter-tweet pull left" lang="en-gb">
+<p lang="en" dir="ltr">
+<a href="https://twitter.com/hashtag/KYOaks?src=hash">#KYOaks</a> timeline. ~8k tweets collected, small number over 6hour period, will write up couple of posts after Derby <a href="http://t.co/zr38zkO8OS">pic.twitter.com/zr38zkO8OS</a>
+</p>
+— RcappeR (<span class="citation">@_RcappeR</span>) <a href="https://twitter.com/_RcappeR/status/594294286235148288">May 2, 2015</a>
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>I noted that 8,000 tweets was a small number of tweets, I was quite surprised (and disappointed) that there were significantly more. For reference the number of tweets mentioning the race or one of its runners was similar to the smallest Grade 1 races at the Cheltenham Festival. Comparing the popularity of races without reference is probably foolish, however National Hunt racing is unlikely to have an significant audience outside of the UK, while Flat racing (be it UK, US, Hong Kong, Aus, etc) will reach further and attract more viewers.</p>
+<p>One of the reasons that could perhaps go some way to explaining the small number is that twitter is largely a young persons game, while Racing (as evidenced by NBCs presenters) is largely an older persons game. This division is a problem for Racing, one that I think a lot of jurisdictions suffer from, there aren’t enough young fans getting into the sport (more on this later).</p>
+<p>While the Oaks tweet count disappointed me, the Derby surprised me, it was far in excess of what I envisaged. The predictable (thanks to <a href="https://twitter.com/railbird/status/589150007808368641">@railbird</a>) hashtag made tweets both easier to catch as opposed to Cheltenham Festival tweets (there aren’t, to my knowledge, hashtags for specific Festival races), but also easier for casual, or non-racing, fans to engage. This was evidenced by nearly 100k tweets that either used the #KYDerby hashtag or mentioned “Kentucky Derby” specifically. It was, and is, a huge sporting event, and while this is encouraging, the difference between the Oaks and the Derby has to be a huge worry. Twitter users tweeting about the Derby, are unlikely to be tweeting about racing for the other 364 days of the year if they aren’t tweeting about the sister race to the biggest race on the US calendar.</p>
+<div id="problems" class="section level2">
+<h2>Problems</h2>
+<p>Racing, in all jurisdictions, <strong>can</strong>, and <strong>must</strong>, do more to attract new fans, whether they be younger or whatever, they need to be drawn into the sport. Attracting new fans is a struggle, and there will always be a myriad of opinions about who, and how, to get new fans. An example (a bad example imo) is Channel 4 and Great British Racing(?) targetting a tiny subset of the population with its latest Grand National advert (watch the advert <a href="https://www.youtube.com/watch?v=NEmKIT0s3xg">here</a>), the tiny subset was likely pre-teen girls.</p>
+</div>
+<div id="solutions" class="section level2">
+<h2>Solutions</h2>
+<p>One way I think fans can be attracted is simply taking advantage of what racing has plenty of, but doesn’t like sharing <strong>DATA</strong>. I’m not the first to write about this, two great posts include <a href="http://jessicachapel.com/2013/10/13/data-points/">this</a> by <a href="https://twitter.com/railbird">@railbird</a> and <a href="http://www.thorotrends.com/news-and-views/50-blog/117-release-the-data">this</a> by <a href="https://twitter.com/thorotrends">@thorotrends</a>. Horse Racing is an incredibly rich sport; Baseball is spoken of as the first data sport, but horse racing is, in my opinion, badly overlooked, and that is noone’s fault but <em>racing’s</em>. The bread and butter of the sport are horses past performances, which amounts to millions of race results. But unlike the bread and butter of Baseball, the box-score, the past performances are either hard to locate, not shared at all, in a bad format (PDFFS), or expensive. This creates a significant hurdle for anyone wanting to get into the sport, and given the current boom in interest in data analysis, then <em>racing</em> is missing a <strong>huge</strong> trick.</p>
+<p>Sharing the data, or even getting it into a format that can easily be consumed by users, is likely to be initially expensive. But sharing data will no doubt improve the standing of the sport immeasurably. By sharing the data racing will either reinforce the interests of fans who, like me, are interested in racing because it is not only thrilling, but it is intellectually stimulating, or draw new fans in. New fans will be drawn in because they are interested in analysing the data, or because, some smart people will take the data and make something incredibly cool with it.</p>
+<p>One example is with the NBA, and the recent addition of location data, this data is <em>free</em> on the NBA site, but some of the most interesting things have been built by incredibly passionate (and not to mention talented!) fans, such as the <a href="http://peterbeshai.com/buckets/app/">Buckets</a> app built by <a href="https://twitter.com/pbesh">@pbesh</a>. Another example is with the NHL, who share data which has lead to a number of great data-dedicated sites/apps, one such <a href="http://war-on-ice.com/">app</a> built by <a href="https://twitter.com/war_on_ice">@war_on_ice</a>, a couple of Stats professors in their spare time!</p>
+<p>Fans are passionate about the sports they follow. Horse Racing fans are no different (they are probably a little older). The one significant difference between Horse Racing and (other) mainstream sports, is the availability of data. I have no doubts that if Racing attempted to make data available, then some incredibly exciting apps/sites would emerge that would help engage new fans; fans who may not have the ability to analyse the data, or plot the data, or play with the data, but would become interested in the sport precisely <strong>because</strong> of the data.</p>
+<p>The Kentucky Derby reached a huge number of people on twitter, and ~170k went to Churchill Downs, enthusiasm for such a huge race is unlikely to ever filter down to a $6250 Claimer on a wet Wednesday at Gulfstream Park, but the enthusiasm should be getting down to the Kentucky Oaks and beyond. So to echo the thoughts of <a href="https://twitter.com/railbird">@railbird</a> and <a href="https://twitter.com/thorotrends">@thorotrends</a>:</p>
+</div>
+<div id="release-the-data" class="section level2">
+<h2>RELEASE THE DATA</h2>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+
+</body>
+</html>

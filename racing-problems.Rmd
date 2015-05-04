@@ -1,0 +1,37 @@
+---
+title: "Racing Problems"
+---
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://durtal.github.io/KYDerby2015-twitter/racing-problems.html" data-text="Kentucky Derby 2015 Twitter Analysis, Racing Problems" data-via="_RcappeR" data-related="_RcappeR" data-hashtags="rstats,KYDerby">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+This is just a short post about a few observations having tracked tweets for the Kentucky Oaks and the Derby, while this post has been borne out of following US racing, I believe similar applies to other racing jurisdictions.
+
+On Friday, after the Oaks, I tweeted the following.
+
+
+<blockquote class="twitter-tweet pull left" lang="en-gb"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/KYOaks?src=hash">#KYOaks</a> timeline. ~8k tweets collected, small number over 6hour period, will write up couple of posts after Derby <a href="http://t.co/zr38zkO8OS">pic.twitter.com/zr38zkO8OS</a></p>&mdash; RcappeR (@_RcappeR) <a href="https://twitter.com/_RcappeR/status/594294286235148288">May 2, 2015</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+I noted that 8,000 tweets was a small number of tweets, I was quite surprised (and disappointed) that there were significantly more.  For reference the number of tweets mentioning the race or one of its runners was similar to the smallest Grade 1 races at the Cheltenham Festival.  Comparing the popularity of races without reference is probably foolish, however National Hunt racing is unlikely to have an significant audience outside of the UK, while Flat racing (be it UK, US, Hong Kong, Aus, etc) will reach further and attract more viewers.
+
+One of the reasons that could perhaps go some way to explaining the small number is that twitter is largely a young persons game, while Racing (as evidenced by NBCs presenters) is largely an older persons game.  This division is a problem for Racing, one that I think a lot of jurisdictions suffer from, there aren't enough young fans getting into the sport (more on this later).
+
+While the Oaks tweet count disappointed me, the Derby surprised me, it was far in excess of what I envisaged.  The predictable (thanks to [\@railbird](https://twitter.com/railbird/status/589150007808368641)) hashtag made tweets both easier to catch as opposed to Cheltenham Festival tweets (there aren't, to my knowledge, hashtags for specific Festival races), but also easier for casual, or non-racing, fans to engage.  This was evidenced by nearly 100k tweets that either used the #KYDerby hashtag or mentioned "Kentucky Derby" specifically.  It was, and is, a huge sporting event, and while this is encouraging, the difference between the Oaks and the Derby has to be a huge worry.  Twitter users tweeting about the Derby, are unlikely to be tweeting about racing for the other 364 days of the year if they aren't tweeting about the sister race to the biggest race on the US calendar.
+
+## Problems
+
+Racing, in all jurisdictions, **can**, and **must**, do more to attract new fans, whether they be younger or whatever, they need to be drawn into the sport.  Attracting new fans is a struggle, and there will always be a myriad of opinions about who, and how, to get new fans.  An example (a bad example imo) is Channel 4 and Great British Racing(?) targetting a tiny subset of the population with its latest Grand National advert (watch the advert [here](https://www.youtube.com/watch?v=NEmKIT0s3xg)), the tiny subset was likely pre-teen girls.
+
+## Solutions
+
+One way I think fans can be attracted is simply taking advantage of what racing has plenty of, but doesn't like sharing **DATA**.  I'm not the first to write about this, two great posts include [this](http://jessicachapel.com/2013/10/13/data-points/) by [\@railbird](https://twitter.com/railbird) and [this](http://www.thorotrends.com/news-and-views/50-blog/117-release-the-data) by [\@thorotrends](https://twitter.com/thorotrends).  Horse Racing is an incredibly rich sport; Baseball is spoken of as the first data sport, but horse racing is, in my opinion, badly overlooked, and that is noone's fault but _racing's_.  The bread and butter of the sport are horses past performances, which amounts to millions of race results.  But unlike the bread and butter of Baseball, the box-score, the past performances are either hard to locate, not shared at all, in a bad format (PDFFS), or expensive.  This creates a significant hurdle for anyone wanting to get into the sport, and given the current boom in interest in data analysis, then _racing_ is missing a **huge** trick.
+
+Sharing the data, or even getting it into a format that can easily be consumed by users, is likely to be initially expensive.  But sharing data will no doubt improve the standing of the sport immeasurably.  By sharing the data racing will either reinforce the interests of fans who, like me, are interested in racing because it is not only thrilling, but it is intellectually stimulating, or draw new fans in.  New fans will be drawn in because they are interested in analysing the data, or because, some smart people will take the data and make something incredibly cool with it.
+
+One example is with the NBA, and the recent addition of location data, this data is _free_ on the NBA site, but some of the most interesting things have been built by incredibly passionate (and not to mention talented!) fans, such as the [Buckets](http://peterbeshai.com/buckets/app/) app built by [\@pbesh](https://twitter.com/pbesh).  Another example is with the NHL, who share data which has lead to a number of great data-dedicated sites/apps, one such [app](http://war-on-ice.com/) built by [\@war_on_ice](https://twitter.com/war_on_ice), a couple of Stats professors in their spare time!  
+
+Fans are passionate about the sports they follow.  Horse Racing fans are no different (they are probably a little older).  The one significant difference between Horse Racing and (other) mainstream sports, is the availability of data.  I have no doubts that if Racing attempted to make data available, then some incredibly exciting apps/sites would emerge that would help engage new fans; fans who may not have the ability to analyse the data, or plot the data, or play with the data, but would become interested in the sport precisely **because** of the data.
+
+The Kentucky Derby reached a huge number of people on twitter, and ~170k went to Churchill Downs, enthusiasm for such a huge race is unlikely to ever filter down to a $6250 Claimer on a wet Wednesday at Gulfstream Park, but the enthusiasm should be getting down to the Kentucky Oaks and beyond.  So to echo the thoughts of [\@railbird](https://twitter.com/railbird) and [\@thorotrends](https://twitter.com/thorotrends):
+
+##RELEASE THE DATA
