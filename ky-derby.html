@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Kentucky Derby</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/united.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script src="libs/htmlwidgets-0.3.2/htmlwidgets.js"></script>
+<link href="libs/dygraphs-1.0.1/dygraph.css" rel="stylesheet" />
+<script src="libs/dygraphs-1.0.1/dygraph-combined.js"></script>
+<script src="libs/moment-2.8.4/moment.js"></script>
+<script src="libs/moment-timezone-0.2.5/moment-timezone-with-data.js"></script>
+<script src="libs/dygraphs-binding-0.4.2/dygraphs.js"></script>
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background-color: #FCFCFC;
+	text-align: justify;
+}
+@media (max-width: 979px) {
+	body {
+		padding-top: 0;
+	}
+}
+/* offset scroll position for anchor links (for fixed navbar) */
+@media (min-width: 980px) {
+	.section h2 {
+		padding-top: 52px;
+		margin-top: -52px;
+	}
+	.section h3 {
+		padding-top: 52px;
+		margin-top: -52px;
+	}
+}
+p {
+	font-size: 13px;
+}
+/* don't use link color in navbar */
+.dropdown-menu>li>a {
+	color: black;
+}
+/* some padding for disqus */
+#disqus_thread {
+	margin-top: 45px;
+}
+
+</style>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
+}
+</style>
+<div class="container-fluid main-container">
+
+<h1>Kentucky Derby 2015 - Twitter Analysis</h1>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://durtal.github.io/">durtal.github.io</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Intro</a></li>
+                <li><a href="preparation.html">Preparation</a></li>
+                <li><a href="ky-oaks.html">KY Oaks</a></li>
+                <li><a href="ky-derby.html">KY Derby</a></li>
+                <li><a href="racing-problems.html">Other</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="https://github.com/durtal/KYDerby2015-twitter"><i class="fa fa-github fa-lg"></i>
+                </a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div id="header">
+<h1 class="title">Kentucky Derby</h1>
+</div>
+
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://durtal.github.io/KYDerby2015-twitter/ky-oaks.html" data-text="Kentucky Derby 2015 Twitter Analysis, the Kentucky Derby" data-via="_RcappeR" data-related="_RcappeR" data-hashtags="rstats,KYDerby">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<p>The Derby was run on Saturday 2nd May, and was contested by 18 3year old colts Tweets mentioning these runners were collected, as well as tweets mentioning “KYDerby” and “Kentucky Derby”. There were <strong>131286</strong> tweets collected, which is a huge number for an individual race, when I collected tweets on Day One of the Cheltenham Festival I collected ~100k tweets (for 4 races and 55 horses). The very popular hashtag #KYDerby and race name “Kentucky Derby” perhaps made collecting tweets easier than the Cheltenham Festival. Unfortunately the number of tweets caused the collection to end an hour earlier, and shortly after the race was completed.</p>
+<div id="timeline" class="section level2">
+<h2>Timeline</h2>
+<div class="row">
+<div class="col-sm-4">
+<p>The plot below shows the timeline of tweets sent. About 40minutes befoore the race started (which went off late) was when twitter activity started to ramp up, with over 1000 tweets sent per minute in the 15minutes before the race. This activity is very different to the UK twitter crowd seen at the Festival, where pre race chatter is pretty constant, with huge peaks post race (see <a href="http://durtal.github.io/cheltenham-festival-2015-twitter/day_one.html">here</a>).</p>
+<p>There is no doubt that the Derby is a huge Sporting event, but what is perhaps concerning for racing is these twitter users are likely not involved or tweeting about racing on the other 365days of the year.</p>
+<p>The interactive plot below is created using the <a href="http://rstudio.github.io/dygraphs/">dygraphs</a> R package which is used to display time-series data.</p>
+</div>
+<div class="col-sm-8">
+<p><img src="ky-derby_files/figure-html/unnamed-chunk-2-1.png" title="" alt="" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<p><div id="htmlwidget-6260" style="width:768px;height:384px;" class="dygraphs"></div>
+<script type="application/json" data-for="htmlwidget-6260">{ "x": {
+ "attrs": {
+ "title": "Tweets sent per Minute",
+"labels": [ "minute", "Tweets Sent" ],
+"legend": "auto",
+"axes": {
+ "x": {
+ "pixelsPerLabel":                50 
+} 
+},
+"series": {
+ "Tweets Sent": {
+ "axis": "y" 
+} 
+},
+"stackedGraph": false,
+"fillGraph": true,
+"fillAlpha":               0.4,
+"stepPlot": false,
+"drawPoints": false,
+"pointSize":                 1,
+"drawGapEdgePoints": false,
+"connectSeparatedPoints": false,
+"strokeWidth":                 1,
+"strokeBorderColor": "white",
+"colors": [
+ "#046C9A" 
+],
+"colorValue":               0.5,
+"colorSaturation":                 1,
+"drawXAxis": true,
+"drawYAxis": true,
+"includeZero": false,
+"drawAxesAtZero": false,
+"logscale": false,
+"axisTickSize":                 3,
+"axisLineColor": "#000000",
+"axisLineWidth":               0.3,
+"axisLabelColor": "black",
+"axisLabelFontSize":                14,
+"axisLabelWidth":                50,
+"drawGrid": true,
+"gridLineColor": "#ECCBAE",
+"gridLineWidth":               0.3,
+"rightGap":                 5,
+"digitsAfterDecimal":                 2,
+"labelsKMB": false,
+"labelsKMG2": false,
+"maxNumberWidth":                 6,
+"animatedZooms": false,
+"showRangeSelector": true,
+"rangeSelectorHeight":                40,
+"rangeSelectorPlotFillColor": " #A7B1C4",
+"rangeSelectorPlotStrokeColor": "#808FAB",
+"interactionModel": "Dygraph.Interaction.defaultModel" 
+},
+"scale": "minute",
+"annotations": [],
+"shadings": [],
+"events": [],
+"data": [
+ [ "2015-05-02T18:00:22Z", "2015-05-02T18:01:22Z", "2015-05-02T18:02:22Z", "2015-05-02T18:03:22Z", "2015-05-02T18:04:22Z", "2015-05-02T18:05:22Z", "2015-05-02T18:06:22Z", "2015-05-02T18:07:22Z", "2015-05-02T18:08:22Z", "2015-05-02T18:09:22Z", "2015-05-02T18:10:22Z", "2015-05-02T18:11:22Z", "2015-05-02T18:12:22Z", "2015-05-02T18:13:22Z", "2015-05-02T18:14:22Z", "2015-05-02T18:15:22Z", "2015-05-02T18:16:22Z", "2015-05-02T18:17:22Z", "2015-05-02T18:18:22Z", "2015-05-02T18:19:22Z", "2015-05-02T18:20:22Z", "2015-05-02T18:21:22Z", "2015-05-02T18:22:22Z", "2015-05-02T18:23:22Z", "2015-05-02T18:24:22Z", "2015-05-02T18:25:22Z", "2015-05-02T18:26:22Z", "2015-05-02T18:27:22Z", "2015-05-02T18:28:22Z", "2015-05-02T18:29:22Z", "2015-05-02T18:30:22Z", "2015-05-02T18:31:22Z", "2015-05-02T18:32:22Z", "2015-05-02T18:33:22Z", "2015-05-02T18:34:22Z", "2015-05-02T18:35:22Z", "2015-05-02T18:36:22Z", "2015-05-02T18:37:22Z", "2015-05-02T18:38:22Z", "2015-05-02T18:39:22Z", "2015-05-02T18:40:22Z", "2015-05-02T18:41:22Z", "2015-05-02T18:42:22Z", "2015-05-02T18:43:22Z", "2015-05-02T18:44:22Z", "2015-05-02T18:45:22Z", "2015-05-02T18:46:22Z", "2015-05-02T18:47:22Z", "2015-05-02T18:48:22Z", "2015-05-02T18:49:22Z", "2015-05-02T18:50:22Z", "2015-05-02T18:51:22Z", "2015-05-02T18:52:22Z", "2015-05-02T18:53:22Z", "2015-05-02T18:54:22Z", "2015-05-02T18:55:22Z", "2015-05-02T18:56:22Z", "2015-05-02T18:57:22Z", "2015-05-02T18:58:22Z", "2015-05-02T18:59:22Z", "2015-05-02T19:00:22Z", "2015-05-02T19:01:22Z", "2015-05-02T19:02:22Z", "2015-05-02T19:03:22Z", "2015-05-02T19:04:22Z", "2015-05-02T19:05:22Z", "2015-05-02T19:06:22Z", "2015-05-02T19:07:22Z", "2015-05-02T19:08:22Z", "2015-05-02T19:09:22Z", "2015-05-02T19:10:22Z", "2015-05-02T19:11:22Z", "2015-05-02T19:12:22Z", "2015-05-02T19:13:22Z", "2015-05-02T19:14:22Z", "2015-05-02T19:15:22Z", "2015-05-02T19:16:22Z", "2015-05-02T19:17:22Z", "2015-05-02T19:18:22Z", "2015-05-02T19:19:22Z", "2015-05-02T19:20:22Z", "2015-05-02T19:21:22Z", "2015-05-02T19:22:22Z", "2015-05-02T19:23:22Z", "2015-05-02T19:24:22Z", "2015-05-02T19:25:22Z", "2015-05-02T19:26:22Z", "2015-05-02T19:27:22Z", "2015-05-02T19:28:22Z", "2015-05-02T19:29:22Z", "2015-05-02T19:30:22Z", "2015-05-02T19:31:22Z", "2015-05-02T19:32:22Z", "2015-05-02T19:33:22Z", "2015-05-02T19:34:22Z", "2015-05-02T19:35:22Z", "2015-05-02T19:36:22Z", "2015-05-02T19:37:22Z", "2015-05-02T19:38:22Z", "2015-05-02T19:39:22Z", "2015-05-02T19:40:22Z", "2015-05-02T19:41:22Z", "2015-05-02T19:42:22Z", "2015-05-02T19:43:22Z", "2015-05-02T19:44:22Z", "2015-05-02T19:45:22Z", "2015-05-02T19:46:22Z", "2015-05-02T19:47:22Z", "2015-05-02T19:48:22Z", "2015-05-02T19:49:22Z", "2015-05-02T19:50:22Z", "2015-05-02T19:51:22Z", "2015-05-02T19:52:22Z", "2015-05-02T19:53:22Z", "2015-05-02T19:54:22Z", "2015-05-02T19:55:22Z", "2015-05-02T19:56:22Z", "2015-05-02T19:57:22Z", "2015-05-02T19:58:22Z", "2015-05-02T19:59:22Z", "2015-05-02T20:00:22Z", "2015-05-02T20:01:22Z", "2015-05-02T20:02:22Z", "2015-05-02T20:03:22Z", "2015-05-02T20:04:22Z", "2015-05-02T20:05:22Z", "2015-05-02T20:06:22Z", "2015-05-02T20:07:22Z", "2015-05-02T20:08:22Z", "2015-05-02T20:09:22Z", "2015-05-02T20:10:22Z", "2015-05-02T20:11:22Z", "2015-05-02T20:12:22Z", "2015-05-02T20:13:22Z", "2015-05-02T20:14:22Z", "2015-05-02T20:15:22Z", "2015-05-02T20:16:22Z", "2015-05-02T20:17:22Z", "2015-05-02T20:18:22Z", "2015-05-02T20:19:22Z", "2015-05-02T20:20:22Z", "2015-05-02T20:21:22Z", "2015-05-02T20:22:22Z", "2015-05-02T20:23:22Z", "2015-05-02T20:24:22Z", "2015-05-02T20:25:22Z", "2015-05-02T20:26:22Z", "2015-05-02T20:27:22Z", "2015-05-02T20:28:22Z", "2015-05-02T20:29:22Z", "2015-05-02T20:30:22Z", "2015-05-02T20:31:22Z", "2015-05-02T20:32:22Z", "2015-05-02T20:33:22Z", "2015-05-02T20:34:22Z", "2015-05-02T20:35:22Z", "2015-05-02T20:36:22Z", "2015-05-02T20:37:22Z", "2015-05-02T20:38:22Z", "2015-05-02T20:39:22Z", "2015-05-02T20:40:22Z", "2015-05-02T20:41:22Z", "2015-05-02T20:42:22Z", "2015-05-02T20:43:22Z", "2015-05-02T20:44:22Z", "2015-05-02T20:45:22Z", "2015-05-02T20:46:22Z", "2015-05-02T20:47:22Z", "2015-05-02T20:48:22Z", "2015-05-02T20:49:22Z", "2015-05-02T20:50:22Z", "2015-05-02T20:51:22Z", "2015-05-02T20:52:22Z", "2015-05-02T20:53:22Z", "2015-05-02T20:54:22Z", "2015-05-02T20:55:22Z", "2015-05-02T20:56:22Z", "2015-05-02T20:57:22Z", "2015-05-02T20:58:22Z", "2015-05-02T20:59:22Z", "2015-05-02T21:00:22Z", "2015-05-02T21:01:22Z", "2015-05-02T21:02:22Z", "2015-05-02T21:03:22Z", "2015-05-02T21:04:22Z", "2015-05-02T21:05:22Z", "2015-05-02T21:06:22Z", "2015-05-02T21:07:22Z", "2015-05-02T21:08:22Z", "2015-05-02T21:09:22Z", "2015-05-02T21:10:22Z", "2015-05-02T21:11:22Z", "2015-05-02T21:12:22Z", "2015-05-02T21:13:22Z", "2015-05-02T21:14:22Z", "2015-05-02T21:15:22Z", "2015-05-02T21:16:22Z", "2015-05-02T21:17:22Z", "2015-05-02T21:18:22Z", "2015-05-02T21:19:22Z", "2015-05-02T21:20:22Z", "2015-05-02T21:21:22Z", "2015-05-02T21:22:22Z", "2015-05-02T21:23:22Z", "2015-05-02T21:24:22Z", "2015-05-02T21:25:22Z", "2015-05-02T21:26:22Z", "2015-05-02T21:27:22Z", "2015-05-02T21:28:22Z", "2015-05-02T21:29:22Z", "2015-05-02T21:30:22Z", "2015-05-02T21:31:22Z", "2015-05-02T21:32:22Z", "2015-05-02T21:33:22Z", "2015-05-02T21:34:22Z", "2015-05-02T21:35:22Z", "2015-05-02T21:36:22Z", "2015-05-02T21:37:22Z", "2015-05-02T21:38:22Z", "2015-05-02T21:39:22Z", "2015-05-02T21:40:22Z", "2015-05-02T21:41:22Z", "2015-05-02T21:42:22Z", "2015-05-02T21:43:22Z", "2015-05-02T21:44:22Z", "2015-05-02T21:45:22Z", "2015-05-02T21:46:22Z", "2015-05-02T21:47:22Z", "2015-05-02T21:48:22Z", "2015-05-02T21:49:22Z", "2015-05-02T21:50:22Z", "2015-05-02T21:51:22Z", "2015-05-02T21:52:22Z", "2015-05-02T21:53:22Z", "2015-05-02T21:54:22Z", "2015-05-02T21:55:22Z", "2015-05-02T21:56:22Z", "2015-05-02T21:57:22Z", "2015-05-02T21:58:22Z", "2015-05-02T21:59:22Z", "2015-05-02T22:00:22Z", "2015-05-02T22:01:22Z", "2015-05-02T22:02:22Z", "2015-05-02T22:03:22Z", "2015-05-02T22:04:22Z", "2015-05-02T22:05:22Z", "2015-05-02T22:06:22Z", "2015-05-02T22:07:22Z", "2015-05-02T22:08:22Z", "2015-05-02T22:09:22Z", "2015-05-02T22:10:22Z", "2015-05-02T22:11:22Z", "2015-05-02T22:12:22Z", "2015-05-02T22:13:22Z", "2015-05-02T22:14:22Z", "2015-05-02T22:15:22Z", "2015-05-02T22:16:22Z", "2015-05-02T22:17:22Z", "2015-05-02T22:18:22Z", "2015-05-02T22:19:22Z", "2015-05-02T22:20:22Z", "2015-05-02T22:21:22Z", "2015-05-02T22:22:22Z", "2015-05-02T22:23:22Z", "2015-05-02T22:24:22Z", "2015-05-02T22:25:22Z", "2015-05-02T22:26:22Z", "2015-05-02T22:27:22Z", "2015-05-02T22:28:22Z", "2015-05-02T22:29:22Z", "2015-05-02T22:30:22Z", "2015-05-02T22:31:22Z", "2015-05-02T22:32:22Z", "2015-05-02T22:33:22Z", "2015-05-02T22:34:22Z", "2015-05-02T22:35:22Z", "2015-05-02T22:36:22Z", "2015-05-02T22:37:22Z", "2015-05-02T22:38:22Z", "2015-05-02T22:39:22Z", "2015-05-02T22:40:22Z", "2015-05-02T22:41:22Z", "2015-05-02T22:42:22Z", "2015-05-02T22:43:22Z", "2015-05-02T22:44:22Z", "2015-05-02T22:45:22Z", "2015-05-02T22:46:22Z", "2015-05-02T22:47:22Z", "2015-05-02T22:48:22Z", "2015-05-02T22:49:22Z", "2015-05-02T22:50:22Z", "2015-05-02T22:51:22Z", "2015-05-02T22:52:22Z", "2015-05-02T22:53:22Z", "2015-05-02T22:54:22Z", "2015-05-02T22:55:22Z", "2015-05-02T22:56:22Z", "2015-05-02T22:57:22Z", "2015-05-02T22:58:22Z", "2015-05-02T22:59:22Z", "2015-05-02T23:00:22Z", "2015-05-02T23:01:22Z" ],
+[ 251, 286, 233, 220, 201, 222, 217, 227, 218, 196, 220, 235, 246, 238, 175, 178, 169, 172, 152, 163, 165, 173, 192, 213, 178, 178, 164, 168, 192, 176, 146, 170, 148, 144, 148, 142, 143, 151, 154, 159, 168, 134, 156, 163, 170, 146, 196, 188, 178, 181, 129, 145, 136, 135, 137, 155, 161, 124, 133, 145, 270, 149, 129, 121, 158, 136, 153, 120, 137, 123, 145, 151, 133, 157, 180, 218, 185, 189, 163, 172, 150, 162, 172, 177, 175, 168, 165, 142, 158, 174, 170, 174, 179, 188, 185, 155, 158, 181, 158, 140, 180, 166, 171, 159, 183, 202, 160, 149, 170, 158, 178, 157, 178, 160, 186, 192, 200, 172, 171, 206, 215, 276, 431, 325, 264, 285, 407, 243, 238, 446, 999, 803, 360, 327, 316, 284, 316, 332, 311, 286, 245, 329, 289, 261, 258, 248, 259, 238, 266, 236, 281, 272, 262, 247, 255, 234, 278, 277, 284, 265, 247, 279, 275, 248, 253, 239, 225, 237, 230, 259, 267, 323, 282, 263, 267, 247, 254, 227, 202, 251, 272, 237, 273, 304, 318, 304, 302, 348, 337, 293, 300, 407, 437, 343, 318, 343, 308, 330, 337, 331, 300, 367, 331, 319, 283, 301, 362, 336, 298, 305, 307, 288, 312, 272, 305, 363, 443, 387, 443, 291, 302, 402, 379, 384, 331, 315, 270, 328, 325, 345, 316, 307, 396, 351, 409, 381, 340, 345, 434, 495, 480, 481, 547, 526, 441, 512, 557, 645, 566, 676, 832, 796, 830, 931, 897, 803, 827, 745, 623, 647, 868, 934, 917, 796, 742, 811, 1184, 1184, 1231, 1268, 1268, 1341, 1412, 1398, 1367, 1476, 1295, 1230, 1397, 1576, 1592, 1658, 1838, 1271, 979, 2769, 2761, 2699, 2560, 2322, 1907, 1814, 1816, 1836, 1550, 1328, 1202, 1180, 1045, 486, 244, 565 ] 
+],
+"fixedtz": true,
+"tzone": "EST5EDT" 
+},"evals": [ "attrs.interactionModel" ] }</script></p>
+</div>
+<div id="hashtags" class="section level2">
+<h2>Hashtags</h2>
+<p>As mentioned, <em>KYDerby</em> and <em>Kentucky Derby</em> were popular and predictable words to track on twitter, and they were mentioned in <strong>93100</strong> of the 131286 tweets collected</p>
+</div>
+<div id="sentiment" class="section level2">
+<h2>Sentiment</h2>
+<p>The sentiment of tweets can be gauged (see <a href="preparation.html">sentiment section</a>) both before the race started and after the race. The plots below show the distributions, the average sentiment pre race was <strong>0.353</strong>, while post race the average sentiment increased marginally to <strong>0.61</strong>.</p>
+<p>The plot that follows shows the sentiment over minute intervals. Sentiment is generally positive throughout the build up, there is jump in sentiment around 16:15, sentiment decreases just before the race started, possibly down to fans having to wait 2hours since the previous race, and the race to still go off late. However the post race sentiment takes a sharp rise, the same can be seen in the Cheltenham Festival twitter crowd, but</p>
+<div class="row">
+<div class="col-sm-6">
+<p><img src="ky-derby_files/figure-html/unnamed-chunk-4-1.png" title="" alt="" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div class="col-sm-6">
+<p><img src="ky-derby_files/figure-html/unnamed-chunk-5-1.png" title="" alt="" width="576" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<p><img src="ky-derby_files/figure-html/unnamed-chunk-6-1.png" title="" alt="" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="runners" class="section level2">
+<h2>Runners</h2>
+<p>The two plots below show the proportion of tweets that mention each of the 18 Derby contenders, sent before the race started on the left, and after the race was completed on the right. The eventual winner, <strong>American Pharoah</strong> was the most 5th tweeted about horse, mentioned in 7.42% of tweets. However, with the four horses ahead of him, I am a little sceptical that they are talking about the contenders.</p>
+<p>Post race, the focus was unsurprisingly on the winner, mentioned in 63.18% of tweets, with runner up <strong>Firing Line</strong> mentioned in 7.18%, and third horse mentioned in 23.74%.</p>
+<div class="row">
+<div class="col-sm-6">
+<p><img src="ky-derby_files/figure-html/unnamed-chunk-8-1.png" title="" alt="" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div class="col-sm-6">
+<p><img src="ky-derby_files/figure-html/unnamed-chunk-9-1.png" title="" alt="" width="576" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+
+</body>
+</html>

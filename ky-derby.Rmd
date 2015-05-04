@@ -1,0 +1,162 @@
+---
+title: "Kentucky Derby"
+---
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://durtal.github.io/KYDerby2015-twitter/ky-oaks.html" data-text="Kentucky Derby 2015 Twitter Analysis, the Kentucky Derby" data-via="_RcappeR" data-related="_RcappeR" data-hashtags="rstats,KYDerby">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+load("data/clean_data.RData")
+source("R/functions.R")
+
+library(ggplot2)
+library(dplyr)
+library(dygraphs)
+
+palette <- wesanderson::wes_palette("Darjeeling2")
+```
+
+The Derby was run on Saturday 2nd May, and was contested by `r length(derby_runners)` 3year old colts  Tweets mentioning these runners were collected, as well as tweets mentioning "KYDerby" and "Kentucky Derby".  There were **`r length(derby$tweet)`** tweets collected, which is a huge number for an individual race, when I collected tweets on Day One of the Cheltenham Festival I collected ~100k tweets (for 4 races and 55 horses).  The very popular hashtag #KYDerby and race name "Kentucky Derby" perhaps made collecting tweets easier than the Cheltenham Festival.  Unfortunately the number of tweets caused the collection to end an hour earlier, and shortly after the race was completed.
+
+## Timeline
+
+<div class="row">
+<div class="col-sm-4">
+
+The plot below shows the timeline of tweets sent.  About 40minutes befoore the race started (which went off late) was when twitter activity started to ramp up, with over 1000 tweets sent per minute in the 15minutes before the race.  This activity is very different to the UK twitter crowd seen at the Festival, where pre race chatter is pretty constant, with huge peaks post race (see [here](http://durtal.github.io/cheltenham-festival-2015-twitter/day_one.html)).
+
+There is no doubt that the Derby is a huge Sporting event, but what is perhaps concerning for racing is these twitter users are likely not involved or tweeting about racing on the other 365days of the year. 
+
+The interactive plot below is created using the [dygraphs](http://rstudio.github.io/dygraphs/) R package which is used to display time-series data.
+
+</div>
+<div class="col-sm-8">
+```{r echo=FALSE, fig.width=7, fig.height=4, fig.align='center'}
+derby$sent_before <- ifelse(derby$time <= as.POSIXct("2015-05-02 18:43", tz = "EST5EDT"), TRUE, FALSE)
+
+ggplot(derby, aes(x = time, fill = sent_before)) +
+    geom_bar(binwidth = 60) +
+    scale_fill_manual(values = palette, name = "Tweet Sent\nBefore") +
+    labs(title = "Kentucky Derby 2015\nTweets sent per minute") +
+    RcappeR::theme_rcapper() +
+    guides(fill=FALSE)
+```
+</div>
+</div>
+
+```{r echo=FALSE, fig.width=8, fig.height=4, fig.align='center'}
+minutes <- seq.POSIXt(min(as.POSIXct(derby$time)), to = max(as.POSIXct(derby$time)), by = "min")
+minute_counts <- cut(derby$time, minutes)
+minute_counts <- as.data.frame(table(minute_counts))$Freq
+minutes <- minutes[1:length(minute_counts)]
+
+y <- xts::xts(x = minute_counts, order.by = minutes)
+dygraph(data = y, main = "Tweets sent per Minute") %>%
+    dySeries("V1", label = "Tweets Sent") %>%
+    dyOptions(useDataTimezone = TRUE, 
+              colors = palette[2],
+              fillGraph = TRUE, 
+              fillAlpha = 0.4,
+              axisLineColor = palette[5], 
+              gridLineColor = palette[1]) %>%
+    dyRangeSelector()
+```
+
+## Hashtags
+
+As mentioned, _KYDerby_ and _Kentucky Derby_ were popular and predictable words to track on twitter, and they were mentioned in **`r table(findtweets(tweets = derby$tweet, c("kyderby", "kentuckyderby")))[[2]]`** of the `r dim(derby)[1]` tweets collected
+
+## Sentiment
+
+The sentiment of tweets can be gauged (see [sentiment section](preparation.html)) both before the race started and after the race.  The plots below show the distributions, the average sentiment pre race was **`r round(mean(subset(derby, sent_before)$senti_score), 3)`**, while post race the average sentiment increased marginally to **`r round(mean(subset(derby, !sent_before)$senti_score), 2)`**.
+
+The plot that follows shows the sentiment over minute intervals.  Sentiment is generally positive throughout the build up, there is jump in sentiment around 16:15, sentiment decreases just before the race started, possibly down to fans having to wait 2hours since the previous race, and the race to still go off late.  However the post race sentiment takes a sharp rise, the same can be seen in the Cheltenham Festival twitter crowd, but 
+
+<div class="row">
+<div class="col-sm-6">
+```{r echo=FALSE, fig.width=6, fig.align='center', fig.height=4}
+ggplot(subset(derby, sent_before), aes(x = factor(senti_score))) + 
+    geom_bar(fill = palette[2]) + 
+    RcappeR::theme_rcapper() + 
+    labs(x = "Sentiment", title = "Kentucky Derby Sentiment\n(Tweets sent before race)")
+```
+</div>
+<div class="col-sm-6">
+```{r echo=FALSE, fig.width=6, fig.height=4, fig.align='center'}
+ggplot(subset(derby, !sent_before), aes(x = factor(senti_score))) + 
+    geom_bar(fill = palette[1]) + 
+    RcappeR::theme_rcapper() + 
+    labs(x = "Sentiment", title = "Kentucky Derby Sentiment\n(Tweets sent after race)")
+```
+</div>
+</div>
+
+
+```{r echo=FALSE, warning=FALSE, message=FALSE, fig.width=7, fig.height=5, fig.align='center'}
+minutes <- seq.POSIXt(min(as.POSIXct(derby$time)), to = max(as.POSIXct(derby$time)), by = "min")
+derby_senti <- derby %>%
+    mutate(time = as.POSIXct(time),
+           cuts = cut(time, breaks = minutes)) %>%
+    group_by(cuts) %>%
+    summarise(avg_senti = mean(senti_score, na.rm = TRUE), sent_before = sent_before[1]) %>%
+    mutate(cuts = as.POSIXct(as.character(cuts)))
+
+ggplot(derby_senti, aes(x = cuts, y = avg_senti)) +
+    geom_point(aes(color = sent_before)) +
+    scale_color_manual(values = palette, guide = FALSE) +
+    RcappeR::theme_rcapper() +
+    geom_smooth(se = FALSE, color = "#ff0000", size = 1.2) +
+    labs(x = "Time", y = "Sentiment", title = "Kentuck Derby\nAverage Sentiment over minute intervals")
+```
+
+## Runners
+
+```{r echo=FALSE, cache=TRUE}
+derby_runners_list <- as.list(derby_runners)
+names(derby_runners_list) <- derby_runners
+
+before <- lapply(derby_runners_list, function(x) {
+    length(findtweets(subset(derby, sent_before)$tweet, searchfor = x, counts = TRUE))
+})
+before <- plyr::ldply(before)
+names(before) <- c("Horse", "Tweets")
+
+before <- before %>%
+    arrange(desc(Tweets)) %>%
+    mutate(Horse = factor(Horse, levels = Horse), Prop = Tweets / sum(Tweets))
+
+after <- lapply(derby_runners_list, function(x) {
+    length(findtweets(subset(derby, !sent_before)$tweet, searchfor = x, counts = TRUE))
+})
+after <- plyr::ldply(after)
+names(after) <- c("Horse", "Tweets")
+
+after <- after %>%
+    arrange(desc(Tweets)) %>%
+    mutate(Horse = factor(Horse, levels = Horse), Prop = Tweets / sum(Tweets))
+```
+
+The two plots below show the proportion of tweets that mention each of the `r length(derby_runners)` Derby contenders, sent before the race started on the left, and after the race was completed on the right.  The eventual winner, **American Pharoah** was the most 5th tweeted about horse, mentioned in `r round(subset(before, Horse == "American Pharoah")$Prop * 100, 2)`% of tweets.  However, with the four horses ahead of him, I am a little sceptical that they are talking about the contenders.
+
+Post race, the focus was unsurprisingly on the winner, mentioned in `r round(subset(after, Horse == "American Pharoah")$Prop * 100, 2)`% of tweets, with runner up **Firing Line** mentioned in `r round(subset(before, Horse == "Firing Line")$Prop * 100, 2)`%, and third horse mentioned in `r round(subset(before, Horse == "Dortmund")$Prop * 100, 2)`%.
+
+<div class="row">
+<div class="col-sm-6">
+```{r echo=FALSE, fig.width=6, fig.height=4, fig.align='center'}
+ggplot(before, aes(x = Horse, y = Prop)) +
+    geom_bar(stat = "identity", fill = palette[2]) +
+    labs(title = "Proportion of tweets that mention each Runner\n(tweets sent before start)") +
+    RcappeR::theme_rcapper() +
+    theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+</div>
+<div class="col-sm-6">
+```{r echo=FALSE, fig.width=6, fig.height=4, fig.align='center'}
+ggplot(after, aes(x = Horse, y = Prop)) +
+    geom_bar(stat = "identity", fill = palette[1]) +
+    labs(title = "Proportion of tweets that mention each Runner\n(tweets sent after start)") +
+    RcappeR::theme_rcapper() +
+    theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+</div>
+</div>
