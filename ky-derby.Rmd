@@ -136,7 +136,7 @@ after <- after %>%
     mutate(Horse = factor(Horse, levels = Horse), Prop = Tweets / sum(Tweets))
 ```
 
-The two plots below show the proportion of tweets that mention each of the `r length(derby_runners)` Derby contenders, sent before the race started on the left, and after the race was completed on the right.  The eventual winner, **American Pharoah** was the most 5th tweeted about horse, mentioned in `r round(subset(before, Horse == "American Pharoah")$Prop * 100, 2)`% of tweets.  However, with the four horses ahead of him, I am a little sceptical that they are talking about the contenders.
+The two plots below show the proportion of tweets that mention each of the `r length(derby_runners)` Derby contenders in all tweets, sent before the race started on the left, and after the race was completed on the right.  The eventual winner, **American Pharoah** was the most 5th tweeted about horse, mentioned in `r round(subset(before, Horse == "American Pharoah")$Prop * 100, 2)`% of tweets.  However, with the four horses ahead of him, I am a little sceptical that they are talking about the contenders.
 
 Post race, the focus was unsurprisingly on the winner, mentioned in `r round(subset(after, Horse == "American Pharoah")$Prop * 100, 2)`% of tweets, with runner up **Firing Line** mentioned in `r round(subset(before, Horse == "Firing Line")$Prop * 100, 2)`%, and third horse mentioned in `r round(subset(before, Horse == "Dortmund")$Prop * 100, 2)`%.
 
@@ -155,6 +155,56 @@ ggplot(before, aes(x = Horse, y = Prop)) +
 ggplot(after, aes(x = Horse, y = Prop)) +
     geom_bar(stat = "identity", fill = palette[1]) +
     labs(title = "Proportion of tweets that mention each Runner\n(tweets sent after start)") +
+    RcappeR::theme_rcapper() +
+    theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+</div>
+</div>
+
+```{r echo=FALSE, cache=TRUE}
+y <- findtweets(derby$tweet, c("KYDerby", "Kentucky Derby"))
+derby_subset <- derby[y,]
+derby_runners_list <- as.list(derby_runners)
+names(derby_runners_list) <- derby_runners
+
+before <- lapply(derby_runners_list, function(x) {
+    length(findtweets(subset(derby_subset, sent_before)$tweet, searchfor = x, counts = TRUE))
+})
+before <- plyr::ldply(before)
+names(before) <- c("Horse", "Tweets")
+
+before <- before %>%
+    arrange(desc(Tweets)) %>%
+    mutate(Horse = factor(Horse, levels = Horse), Prop = Tweets / sum(Tweets))
+
+after <- lapply(derby_runners_list, function(x) {
+    length(findtweets(subset(derby_subset, !sent_before)$tweet, searchfor = x, counts = TRUE))
+})
+after <- plyr::ldply(after)
+names(after) <- c("Horse", "Tweets")
+
+after <- after %>%
+    arrange(desc(Tweets)) %>%
+    mutate(Horse = factor(Horse, levels = Horse), Prop = Tweets / sum(Tweets))
+```
+
+The following two plots use a subset of tweets, tweets that specifically mention "Kentucky Derby" or use the #KYDerby hashtag.  Unlike the two plots above, where Dortmund mentions may be talking about football, and Carpe Diem mentions might be about someone sat on a couch seizing the day, these tweets are much more likely about the runners.  Although the names to casual sports fans will more than likely strike a chord.
+
+<div class="row">
+<div class="col-sm-6">
+```{r echo=FALSE, fig.width=6, fig.height=4, fig.align='center'}
+ggplot(before, aes(x = Horse, y = Prop)) +
+    geom_bar(stat = "identity", fill = palette[2]) +
+    labs(title = "Proportion of tweets that mention each Runner\n(tweets sent before start, tweets contain #KYDerby and/or 'Kentucky Derby')") +
+    RcappeR::theme_rcapper() +
+    theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+</div>
+<div class="col-sm-6">
+```{r echo=FALSE, fig.width=6, fig.height=4, fig.align='center'}
+ggplot(after, aes(x = Horse, y = Prop)) +
+    geom_bar(stat = "identity", fill = palette[1]) +
+    labs(title = "Proportion of tweets that mention each Runner\n(tweets sent after start, tweets contain #KYDerby and/or 'Kentucky Derby')") +
     RcappeR::theme_rcapper() +
     theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 ```
