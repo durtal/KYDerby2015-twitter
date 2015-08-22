@@ -175,10 +175,10 @@ img {
 <div id="cleaning" class="section level2">
 <h2>Cleaning</h2>
 <p>To clean tweets, remove unnecessary characters, links, etc, I use a function I wrote specifically when I collected tweets for the Cheltenham Festival, the <code>tweet_cleaner</code> function can be seen <a href="https://github.com/durtal/KYDerby2015-twitter/blob/master/R/functions.R#L14-L56">here</a>. An example of cleaning can be seen below on 6 tweets from Derby day, followed by tweets after they’ve been cleaned (the second tweet mentions Stanford, but is talking about the college, not the horse):</p>
-<pre><code>## [1] &quot;RT @SportsCenter: So this is happening today:\n\n• Day 3, NFL Draft\n• NHL Playoffs\n• Yankees at Red Sox\n• Kentucky Derby   \n• Spurs vs Clippe…&quot;
+<pre><code>## [1] &quot;RT @SportsCenter: So this is happening today:\n\n&lt;U+0095&gt; Day 3, NFL Draft\n&lt;U+0095&gt; NHL Playoffs\n&lt;U+0095&gt; Yankees at Red Sox\n&lt;U+0095&gt; Kentucky Derby   \n&lt;U+0095&gt; Spurs vs Clippe&lt;U+0085&gt;&quot;
 ## [2] &quot;RT @SBNationCFB: Most picks through four:\n\nFlorida State: 7\nMiami: 6\nAlabama, Florida, Louisville, Stanford: 5&quot;                                
 ## [3] &quot;Are you a fan of the Kentucky Derby? Try these cocktails out for something different.  http://t.co/sdlBJrHa7t&quot;                                     
-## [4] &quot;RT @SportsCenter: So this is happening today:\n\n• Day 3, NFL Draft\n• NHL Playoffs\n• Yankees at Red Sox\n• Kentucky Derby   \n• Spurs vs Clippe…&quot;
+## [4] &quot;RT @SportsCenter: So this is happening today:\n\n&lt;U+0095&gt; Day 3, NFL Draft\n&lt;U+0095&gt; NHL Playoffs\n&lt;U+0095&gt; Yankees at Red Sox\n&lt;U+0095&gt; Kentucky Derby   \n&lt;U+0095&gt; Spurs vs Clippe&lt;U+0085&gt;&quot;
 ## [5] &quot;Goal is to one day go to the Kentucky Derby and wear a big hat &lt;ed&gt;&lt;U+00A0&gt;&lt;U+00BD&gt;&lt;ed&gt;&lt;U+00B1&gt;&lt;U+0097&gt;&lt;ed&gt;&lt;U+00A0&gt;&lt;U+00BD&gt;&lt;ed&gt;&lt;U+00B1&gt;&lt;U+0092&gt;&quot;   
 ## [6] &quot;RT @ESPNNFL: The Super Bowl champs are at the Kentucky Derby. (via Tom Brady/Facebook) http://t.co/ckxBtiBQY8&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tweet_cleaner</span>(<span class="dt">tweets =</span> example_tweets)</code></pre>
